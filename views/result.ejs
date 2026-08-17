@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title><%= place %> weather — Current Conditions</title>
+    <%- include("partials/head") %>
+  </head>
+  <body class="wx-page">
+    <div class="wx-shell">
+      <header class="wx-header">
+        <p class="wx-eyebrow">Open-Meteo live data</p>
+        <h1 class="wx-title">Right now in <em><%= place %></em></h1>
+        <p class="wx-lede">Observed at <%= String(time).replace("T", " ") %> (local time)</p>
+      </header>
+
+      <form class="wx-form" action="/result" method="post">
+        <input
+          class="wx-input"
+          type="text"
+          name="place"
+          placeholder="Search another city"
+          aria-label="City name"
+          required
+        />
+        <button class="wx-button" type="submit">Submit</button>
+      </form>
+
+      <%
+        const metrics = [
+          { label: "Temperature", value: temperature + "\u00B0C", hint: "Air temperature at 2 m" },
+          { label: "Feels like", value: app_temp + "\u00B0C", hint: "Apparent temperature" },
+          { label: "Humidity", value: humidity + "%", hint: "Relative humidity" },
+          { label: "Dew point", value: dew + "\u00B0C", hint: "Condensation threshold" },
+          { label: "Pressure", value: pressure + " hPa", hint: "Mean sea level" },
+          { label: "Surface pressure", value: surface_press + " hPa", hint: "At station level" },
+          { label: "Cloud cover", value: cloud + "%", hint: "Total sky coverage" },
+        ];
+      %>
+
+      <div class="wx-grid">
+        <% metrics.forEach(function (m) { %>
+        <article class="wx-card">
+          <p class="wx-card-label"><span class="wx-dot"></span><%= m.label %></p>
+          <p class="wx-card-value"><%= m.value %></p>
+          <p class="wx-card-hint"><%= m.hint %></p>
+        </article>
+        <% }); %>
+      </div>
+
+      <p class="wx-back"><a href="/">&larr; Search from the start</a></p>
+    </div>
+  </body>
+</html>
