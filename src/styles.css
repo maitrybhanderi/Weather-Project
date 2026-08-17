@@ -147,3 +147,20 @@
     color: var(--color-foreground);
   }
 }
+
+@utility bg-aurora {
+  background-image:
+    radial-gradient(60rem 40rem at 12% -10%, oklch(0.78 0.15 195 / 0.18), transparent 60%),
+    radial-gradient(50rem 35rem at 95% 5%, oklch(0.72 0.17 60 / 0.14), transparent 60%),
+    radial-gradient(55rem 40rem at 50% 110%, oklch(0.6 0.18 285 / 0.16), transparent 65%);
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
