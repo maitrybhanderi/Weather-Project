@@ -4,17 +4,17 @@ import { useState, type FormEvent } from "react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Weather Grid — Live City Conditions" },
+      { title: "Pastel Weather — Current Conditions by City" },
       {
         name: "description",
         content:
-          "Search any city and see live temperature, humidity, dew point, pressure and cloud cover in a clean weather grid.",
+          "Search any city for a calm, pastel readout of temperature, humidity, dew point, pressure and cloud cover.",
       },
-      { property: "og:title", content: "Weather Grid — Live City Conditions" },
+      { property: "og:title", content: "Pastel Weather — Current Conditions by City" },
       {
         property: "og:description",
         content:
-          "Search any city and see live temperature, humidity, dew point, pressure and cloud cover in a clean weather grid.",
+          "Search any city for a calm, pastel readout of temperature, humidity, dew point, pressure and cloud cover.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -89,65 +89,52 @@ function Index() {
         { label: "Pressure", value: `${c.pressure_msl} hPa`, hint: "Mean sea level" },
         { label: "Surface pressure", value: `${c.surface_pressure} hPa`, hint: "At station level" },
         { label: "Cloud cover", value: `${c.cloud_cover}%`, hint: "Total sky coverage" },
-        { label: "Observed", value: String(c.time).replace("T", " "), hint: "Local station time" },
       ]
     : [];
 
   return (
-    <main className="min-h-screen bg-background bg-aurora px-5 py-16 text-foreground">
-      <div className="mx-auto w-full max-w-5xl">
-        <header className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">
-            Open-Meteo live data
-          </p>
-          <h1 className="mt-4 font-display text-5xl leading-tight tracking-tight sm:text-6xl">
-            Weather<span className="text-primary">Grid</span>
+    <main className="wx-page">
+      <div className="wx-shell">
+        <header className="wx-header">
+          <p className="wx-eyebrow">Open-Meteo live data</p>
+          <h1 className="wx-title">
+            A gentle look at <em>today&rsquo;s sky</em>
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:text-base">
-            Type a city and get its current atmospheric readout, laid out as a clean grid.
+          <p className="wx-lede">
+            Type a city name and see its current conditions laid out in a calm, readable grid.
           </p>
         </header>
 
-        <form
-          onSubmit={onSubmit}
-          className="mx-auto mt-10 flex w-full max-w-xl flex-col gap-3 rounded-2xl border border-border bg-card/70 p-3 shadow-glow backdrop-blur sm:flex-row"
-        >
+        <form className="wx-form" onSubmit={onSubmit}>
           <input
+            className="wx-input"
             value={place}
             onChange={(e) => setPlace(e.target.value)}
             placeholder="Enter a city name, e.g. Rajkot"
             aria-label="City name"
-            className="h-12 flex-1 rounded-xl border border-input bg-background/60 px-4 text-base outline-none transition focus:border-ring focus:ring-2 focus:ring-ring/40"
           />
-          <button
-            type="submit"
-            disabled={loading}
-            className="h-12 rounded-xl bg-primary px-7 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
-          >
+          <button className="wx-button" type="submit" disabled={loading}>
             {loading ? "Fetching…" : "Submit"}
           </button>
         </form>
 
-        {error && (
-          <p className="mt-6 text-center text-sm font-medium text-destructive">{error}</p>
-        )}
+        {error && <p className="wx-error">{error}</p>}
 
         {c && (
-          <section className="mt-12">
-            <h2 className="text-center font-display text-2xl tracking-tight">{result!.place}</h2>
-            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <section>
+            <h2 className="wx-place">{result!.place}</h2>
+            <p className="wx-place-sub">
+              Observed at {String(c.time).replace("T", " ")} (local time)
+            </p>
+            <div className="wx-grid">
               {metrics.map((m) => (
-                <article
-                  key={m.label}
-                  className="rounded-2xl border border-border bg-card/70 p-5 backdrop-blur transition hover:-translate-y-1 hover:border-primary/50 hover:shadow-glow"
-                >
-                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                <article className="wx-card" key={m.label}>
+                  <p className="wx-card-label">
+                    <span className="wx-dot" aria-hidden="true" />
                     {m.label}
                   </p>
-                  <p className="mt-3 font-display text-2xl tracking-tight text-foreground">
-                    {m.value}
-                  </p>
-                  <p className="mt-2 text-xs text-muted-foreground">{m.hint}</p>
+                  <p className="wx-card-value">{m.value}</p>
+                  <p className="wx-card-hint">{m.hint}</p>
                 </article>
               ))}
             </div>
@@ -155,9 +142,9 @@ function Index() {
         )}
 
         {!c && !error && (
-          <div className="mt-12 grid grid-cols-1 gap-4 opacity-40 sm:grid-cols-2 lg:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="h-32 rounded-2xl border border-dashed border-border" />
+          <div className="wx-empty" aria-hidden="true">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div className="wx-ghost" key={i} />
             ))}
           </div>
         )}
