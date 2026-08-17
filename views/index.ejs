@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Pastel Weather — Current Conditions by City</title>
+    <%- include("partials/head") %>
+  </head>
+  <body class="wx-page">
+    <div class="wx-shell">
+      <header class="wx-header">
+        <p class="wx-eyebrow">Open-Meteo live data</p>
+        <h1 class="wx-title">A gentle look at <em>today&rsquo;s sky</em></h1>
+        <p class="wx-lede">
+          Type a city name and see its current conditions laid out in a calm, readable grid.
+        </p>
+      </header>
+
+      <form class="wx-form" action="/result" method="post">
+        <input
+          class="wx-input"
+          type="text"
+          name="place"
+          placeholder="Enter a city name, e.g. Rajkot"
+          aria-label="City name"
+          required
+        />
+        <button class="wx-button" type="submit">Submit</button>
+      </form>
+
+      <% if (typeof error !== "undefined" && error) { %>
+      <p class="wx-error"><%= error %></p>
+      <% } %>
+
+      <div class="wx-empty" aria-hidden="true">
+        <% for (let i = 0; i < 6; i++) { %>
+        <div class="wx-ghost"></div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>
