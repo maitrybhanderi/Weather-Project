@@ -1,0 +1,227 @@
+/* Hand-written stylesheet for the weather page (no utility classes). */
+
+.wx-page {
+  --wx-cream: #fdf7f0;
+  --wx-sand: #f6ece1;
+  --wx-blush: #f7d7d2;
+  --wx-apricot: #f8c9a4;
+  --wx-sky: #cfe3f2;
+  --wx-deep-sky: #7fa8c9;
+  --wx-ink: #4a4038;
+  --wx-ink-soft: #8b7d71;
+  --wx-line: #ecdfd2;
+  --wx-shadow: 0 14px 34px -18px rgba(122, 96, 76, 0.45);
+
+  min-height: 100vh;
+  padding: 4rem 1.25rem 5rem;
+  color: var(--wx-ink);
+  font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--wx-cream);
+  background-image:
+    radial-gradient(38rem 26rem at 8% 0%, rgba(248, 201, 164, 0.45), transparent 62%),
+    radial-gradient(34rem 24rem at 96% 6%, rgba(207, 227, 242, 0.6), transparent 62%),
+    radial-gradient(40rem 28rem at 50% 108%, rgba(247, 215, 210, 0.5), transparent 66%);
+}
+
+.wx-shell {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.wx-header {
+  text-align: center;
+}
+
+.wx-eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--wx-ink-soft);
+}
+
+.wx-title {
+  margin: 0.9rem 0 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 6vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.wx-title em {
+  font-style: italic;
+  color: var(--wx-deep-sky);
+}
+
+.wx-lede {
+  margin: 0.9rem auto 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  color: var(--wx-ink-soft);
+}
+
+/* --- form --- */
+.wx-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 34rem;
+  margin: 2.4rem auto 0;
+  padding: 0.55rem;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--wx-line);
+  border-radius: 999px;
+  box-shadow: var(--wx-shadow);
+}
+
+.wx-input {
+  flex: 1 1 14rem;
+  min-width: 0;
+  height: 3rem;
+  padding: 0 1.15rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--wx-ink);
+  background: var(--wx-cream);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wx-input::placeholder {
+  color: #b6a99d;
+}
+
+.wx-input:focus {
+  border-color: var(--wx-deep-sky);
+  box-shadow: 0 0 0 4px rgba(127, 168, 201, 0.22);
+}
+
+.wx-button {
+  height: 3rem;
+  padding: 0 1.9rem;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #57402f;
+  background: linear-gradient(135deg, var(--wx-apricot), var(--wx-blush));
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.wx-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.wx-button:disabled {
+  cursor: default;
+  opacity: 0.65;
+}
+
+.wx-error {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-weight: 700;
+  color: #c4695f;
+}
+
+/* --- results --- */
+.wx-place {
+  margin: 3rem 0 0;
+  text-align: center;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.wx-place-sub {
+  margin: 0.35rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--wx-ink-soft);
+}
+
+.wx-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.wx-card {
+  padding: 1.35rem 1.4rem 1.5rem;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--wx-line);
+  border-radius: 1.4rem;
+  box-shadow: var(--wx-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wx-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -20px rgba(122, 96, 76, 0.5);
+}
+
+.wx-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--wx-ink-soft);
+}
+
+.wx-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--wx-apricot);
+}
+
+.wx-card:nth-child(3n + 2) .wx-dot { background: var(--wx-sky); }
+.wx-card:nth-child(3n + 3) .wx-dot { background: var(--wx-blush); }
+
+.wx-card-value {
+  margin: 0.85rem 0 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.85rem;
+  line-height: 1.1;
+}
+
+.wx-card-hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  color: var(--wx-ink-soft);
+}
+
+/* --- empty state --- */
+.wx-empty {
+  display: grid;
+  gap: 1rem;
+  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.wx-ghost {
+  height: 8.5rem;
+  border: 1px dashed var(--wx-line);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 480px) {
+  .wx-form {
+    border-radius: 1.4rem;
+  }
+}
